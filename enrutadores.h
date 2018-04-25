@@ -4,14 +4,17 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <map>
 #include <string.h>
 
+using namespace std;
 class enrutador{
 private:
-    char *router;
+    typedef map<char, int> &tabla;
+    typedef vector<char>&router;
     int *mm;
     void nom_enru(char *);
-    int *rutas(int *mm);
+    int rutas(tabla, router );
 
 public:
     void eliminar_rut();
@@ -19,7 +22,9 @@ public:
     void editar_cost();
 };
 
-class red{
+class redes{
+private:
+    void red();
 
 };
 #endif // ENRUTADORES_H

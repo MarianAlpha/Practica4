@@ -8,14 +8,8 @@
 
 using namespace std;
 
-void enrutador::nom_enru(char *a){
-    router=a;
-}
-
-int *enrutador::rutas(int *mm)
+int enrutador::rutas(tabla, router)
 {
-    vector <char> router;
-    map <char, int> tabla;
     int precio;
     char a;
     srand (time(NULL));
@@ -29,4 +23,18 @@ int *enrutador::rutas(int *mm)
         a=router[i];
         tabla[a]=precio;
     }
+    return tabla;
+}
+
+void eliminar_rut(){
+    char x;//eli
+    string y;//eli
+
+    cout<<"ingresela contraseña del elemento que quiere eliminar"<<endl;
+    cin>>x;
+    map<char, int>::iterator p = tabla.find(x);
+    if(p != tabla.end()){
+        cout << "se elimino el elemento " << x << " = " << p->second << endl;
+        tabla.erase(x);}
+    else {cout << x << " no existe en el map"<<endl;}
 }
