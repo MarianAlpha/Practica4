@@ -16,9 +16,9 @@ private:
     int rutas(tabla, router );
 
 public:
-    void eliminar_rut();
-    void agregar_rut();
-    void editar_cost();
+    void eliminar_rut(tabla);
+    void agregar_rut(tabla);
+    void editar_cost(tabla);
 };
 
 class redes{
