@@ -82,3 +82,85 @@ void grafo::insertaarista(vertice *origen, vertice *destino, int peso){
     }
 
 }
+
+void grafo::listaadyayacencia(){
+    vertice *vertiaux;
+    arista *arisaux;
+    vertiaux =h;
+    while(vertiaux !=NULL)
+    {
+        cout<<vertiaux->nombre<<"->";
+        arisaux =vertiaux->ady;
+        while (arisaux!=NULL) {
+            cout<<arisaux->ady->nombre<<"->";
+            arisaux = arisaux->sig;
+        }
+        vertiaux =vertiaux->sig;
+        cout<<endl;
+    }
+}
+void grafo::anular(){
+    vertice*aux;
+    while (h!=NULL) {
+        aux=h;
+        h=h->sig;
+        delete(aux);
+        }
+}
+void grafo::eliminararista(vertice *origen, vertice *destino){
+    int band =0;
+    arista *actual,*anterior;
+    actual =origen->ady;
+    if(actual ==NULL){
+        cout<<"el vertice origen no tiene aristas"<<endl;
+    }
+    else if(actual->ady==destino){
+        origen->ady=actual->sig;
+        delete(actual);
+         }
+    else {
+        while (actual->ady != destino) {
+            if(actual->ady ==destino){
+                band =1;
+                anterior->sig =actual->sig;
+                delete(actual);
+                break;
+                }
+            anterior =actual;
+            actual =actual->sig;
+        }
+        if(band==0){
+            cout<<"esos dos verticesno estan conectados"<<endl;
+        }
+
+    }
+}
+void grafo::eliminarvertice(vertice *vert){
+    vertice *actual, *anterior;
+    arista *aux;
+    actual =h;
+    while (actual!=NULL) {
+        aux = actual->ady;
+        while (aux !=NULL) {
+            if(aux->ady ==vert){
+                eliminararista(actual,aux->ady);
+                break;
+            }
+            aux =aux->sig;
+        }
+        actual =actual->sig;
+    }
+    actual=h;
+    if(h==vert){
+        h=h->sig;
+        delete(actual);
+    }
+    else{
+        while (actual !=vert) {
+            anterior=actual;
+            actual =actual->sig;
+            }
+        anterior->sig=actual->sig;
+        delete(actual);
+    }
+}
