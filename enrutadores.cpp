@@ -6,54 +6,79 @@
 #include<time.h>
 #include <vector>
 
-using namespace std;
+void grafo::inicializa(){
+    h=NULL;
+}
+bool grafo::vacio(){
+    if(h==NULL){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
-void enrutador::rutas(map<char, int> &tabla, vector<char> &router)
+int grafo::tamano()
 {
-    int precio;
-    char a;
-    srand (time(NULL));
-    for(int i=0; i<4; i++){
-        a= 65 + rand() % (91-65);
-        router.push_back(a);
-    }
+    int cont =0;
+    vertice *aux;
+    aux = h;
+    while (aux != NULL) {
+        cont++;
+        aux = aux->sig;
+        }
+    return cont;
+}
+vertice *grafo::getvertice(string nombre){
+    vertice *aux;
+    aux=h;
+    while (aux !=NULL) {
+        if (aux->nombre==nombre){
+            return aux;
+        }
+        aux =aux->sig;
 
-    for(int i=0; i<4; i++){
-        precio=rand()%15;
-        a=router[i];
-        tabla[a]=precio;
     }
+    return NULL;
 }
 
-void enrutador::eliminar_rut(map<char, int> &tabla){
-    char x;//eli
-    string y;//eli
+void grafo::insertavertice(string nombre){
+    vertice *nuevo =new vertice;
+    nuevo->nombre = nombre;
+    nuevo->ady =NULL;
+    nuevo->sig =NULL;
+    if(vacio())
+    {h =nuevo;
 
-    cout<<"ingresela el elemento que quiere eliminar"<<endl;
-    cin>>x;
-    map<char, int>::iterator p = tabla.find(x);
-    if(p != tabla.end()){
-        cout << "se elimino el elemento " << x << " = " << p->second << endl;
-        tabla.erase(x);}
-    else {cout << x << " no existe en el map"<<endl;}
-}
-
-void enrutador::editar_cost(map<char, int> &tabla){
-    char a;
-    int price,k=1;
-    while(k){
-        cout<<" Ingrese el elemento que desea editar: "<<endl;
-        cin>>a;
-        cout<<"Ingrese el nuevo precio: "<<endl;
-        cin>>price;
-        map<char, int>::iterator p = tabla.find(a);
-        if(p != tabla.end()){
-            tabla[a]=price;
-            break;
-        }
-        else {
-            cout<<"Este elemento no existe, por favor ingrese un valor valido: "<<endl;
-            k=1;
-        }
     }
+    else {
+        vertice *aux;
+        aux=h;
+        while (aux->sig !=NULL) {
+            aux = aux->sig;
+
+        }
+        aux->sig = nuevo;
+    }
+
+}
+void grafo::insertaarista(vertice *origen, vertice *destino, int peso){
+    arista *nueva =new arista;
+    nueva->peso =peso;
+    nueva->sig=NULL;
+    nueva->ady=NULL;
+    arista *aux;
+    aux = origen->ady;
+    if (aux ==NULL){
+        origen->ady = nueva;
+        nueva->ady=destino;
+    }
+    else{
+        while(aux->sig !=NULL){
+            aux=aux->sig;
+        }
+        aux->sig =nueva;
+        nueva->ady=destino;
+    }
+
 }

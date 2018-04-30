@@ -8,23 +8,32 @@
 #include <string.h>
 
 using namespace std;
-class enrutador{
-private:
-    typedef map<char, int> &tabla;
-    typedef vector<char> &router;
-    void nom_enru(char *);
-    void rutas(map<char, int> &tabla, vector<char> &router);
+class arista;
 
-public:
-    void eliminar_rut(map<char, int> &tabla);
-    void agregar_rut(map<char, int> &tabla);
-    void editar_cost(map<char, int> &tabla);
+
+class vertice
+{
+vertice *sig;
+arista *ady;
+string nombre;
+friend class grafo;
 };
-
-class redes{
-private:
-    void red();
-
-
+class arista{
+    arista *sig;
+    vertice *ady;
+    int peso;
+    friend class grafo;
+};
+class grafo{
+    vertice *h;
+public:
+    void inicializa();
+    bool vacio();
+    int tamano();
+    vertice *getvertice(string nombre);
+    void insertaarista(vertice *origen, vertice *destino, int peso);
+    void insertavertice(string nombre);
+    void listaadyayacencia();
+    void tabla();
 };
 #endif // ENRUTADORES_H
