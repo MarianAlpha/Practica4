@@ -11,19 +11,20 @@ using namespace std;
 class enrutador{
 private:
     typedef map<char, int> &tabla;
-    typedef vector<char>&router;
+    typedef vector<char> &router;
     void nom_enru(char *);
-    int rutas(tabla, router );
+    void rutas(map<char, int> &tabla, vector<char> &router);
 
 public:
-    void eliminar_rut();
-    void agregar_rut();
-    void editar_cost();
+    void eliminar_rut(map<char, int> &tabla);
+    void agregar_rut(map<char, int> &tabla);
+    void editar_cost(map<char, int> &tabla);
 };
 
 class redes{
 private:
     void red();
+
 
 };
 #endif // ENRUTADORES_H

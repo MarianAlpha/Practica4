@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int enrutador::rutas(tabla, router)
+void enrutador::rutas(map<char, int> &tabla, vector<char> &router)
 {
     int precio;
     char a;
@@ -23,10 +23,9 @@ int enrutador::rutas(tabla, router)
         a=router[i];
         tabla[a]=precio;
     }
-    return tabla;
 }
 
-void eliminar_rut(){
+void enrutador::eliminar_rut(map<char, int> &tabla){
     char x;//eli
     string y;//eli
 
@@ -37,4 +36,24 @@ void eliminar_rut(){
         cout << "se elimino el elemento " << x << " = " << p->second << endl;
         tabla.erase(x);}
     else {cout << x << " no existe en el map"<<endl;}
+}
+
+void enrutador::editar_cost(map<char, int> &tabla){
+    char a;
+    int price,k=1;
+    while(k){
+        cout<<" Ingrese el elemento que desea editar: "<<endl;
+        cin>>a;
+        cout<<"Ingrese el nuevo precio: "<<endl;
+        cin>>price;
+        map<char, int>::iterator p = tabla.find(a);
+        if(p != tabla.end()){
+            tabla[a]=price;
+            break;
+        }
+        else {
+            cout<<"Este elemento no existe, por favor ingrese un valor valido: "<<endl;
+            k=1;
+        }
+    }
 }
